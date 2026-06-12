@@ -1,5 +1,4 @@
 package nl.pluralsight.stagepass.controller;
-
 import jakarta.validation.Valid;
 import nl.pluralsight.stagepass.model.Booking;
 import nl.pluralsight.stagepass.service.BookingService;
@@ -7,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/bookings")
@@ -44,8 +44,8 @@ public class BookingController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> cancelBooking(@PathVariable Long id) {
         if (bookingService.cancelBooking(id)) {
-            return ResponseEntity.ok().build();
+            return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.noContent().build();
     }
 }
