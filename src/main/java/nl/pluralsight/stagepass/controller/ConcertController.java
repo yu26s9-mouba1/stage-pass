@@ -1,19 +1,26 @@
 package nl.pluralsight.stagepass.controller;
 import jakarta.validation.Valid;
+import nl.pluralsight.stagepass.dto.ConcertSummary;
+import nl.pluralsight.stagepass.repository.BookingRepository;
 import nl.pluralsight.stagepass.model.Concert;
 import nl.pluralsight.stagepass.service.BookingService;
 import nl.pluralsight.stagepass.service.ConcertService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import nl.pluralsight.stagepass.model.Booking;
 import java.util.List;
+import java.util.Optional;
+import java.math.BigDecimal;
+
 
 @RestController
 @RequestMapping("/api/concerts")
 public class ConcertController {
 
-    private final ConcertService concertService;
     private final BookingService bookingService;
+    private final ConcertService concertService;
+
 
     public ConcertController(ConcertService concertService, BookingService bookingService) {
         this.concertService = concertService;
@@ -62,6 +69,13 @@ public class ConcertController {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+
+    //Gets booking for a specific concert
+    @GetMapping("/{id}/summary")
+    public ResponseEntity<ConcertSummary> getConcertSummary(@PathVariable Long id)  {
+        return concertService.getConcertSummary(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
 }
