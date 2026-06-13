@@ -42,6 +42,11 @@ public class ConcertService {
         });
     }
 
+    //Retrieves all concerts for a specific artist
+    public List<Concert> getConcertsByArtist(Long artistId) {
+        return concertRepository.findByArtistId(artistId);
+    }
+
     public boolean deleteConcert(Long id) {
         if (concertRepository.existsById(id)) {
             concertRepository.deleteById(id);

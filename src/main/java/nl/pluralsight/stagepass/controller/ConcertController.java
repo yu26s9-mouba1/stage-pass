@@ -1,5 +1,4 @@
 package nl.pluralsight.stagepass.controller;
-
 import jakarta.validation.Valid;
 import nl.pluralsight.stagepass.model.Concert;
 import nl.pluralsight.stagepass.service.BookingService;
@@ -7,7 +6,6 @@ import nl.pluralsight.stagepass.service.ConcertService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -32,6 +30,12 @@ public class ConcertController {
         return concertService.getConcertById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    //Gets all concerts for a specific artist
+    @GetMapping("/artist/{artistId}")
+    public ResponseEntity<List<Concert>> getConcertsByArtistId(@PathVariable Long artistId) {
+        return ResponseEntity.ok(concertService.getConcertsByArtist(artistId));
     }
 
     @PostMapping
