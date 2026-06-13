@@ -44,6 +44,11 @@ public class ConcertController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
+    @GetMapping("/upcoming")
+    public ResponseEntity<List<Concert>> getUpcomingConcerts() {
+        return ResponseEntity.ok(concertService.getUpcomingConcerts());
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Concert> updateConcert(@PathVariable Long id, @RequestBody Concert concert) {
         return concertService.updateConcert(id, concert)

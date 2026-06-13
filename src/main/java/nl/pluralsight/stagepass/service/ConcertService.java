@@ -47,6 +47,12 @@ public class ConcertService {
         return concertRepository.findByArtistId(artistId);
     }
 
+    //Retrieve all upcoming concerts
+
+    public List<Concert> getUpcomingConcerts() {
+        return concertRepository.findByDateAfterOrderByDateAsc(LocalDate.now());
+    }
+
     public boolean deleteConcert(Long id) {
         if (concertRepository.existsById(id)) {
             concertRepository.deleteById(id);
